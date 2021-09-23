@@ -7,8 +7,14 @@ spring:
       discovery:
         # 指定nacos server的地址
         server-addr: localhost:8848
+        # 命名空间
+        # namespace: 344a899c-05f9-4e40-b2eb-3512928330e6
+        # 分组
+        # group: TEST_GROUP
         # 集群名称
         cluster-name: kunming
+
+
   datasource:
     url: jdbc:mysql://localhost:3306/content_center?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: root
@@ -31,3 +37,33 @@ ribbon:
     enabled: true
     # 为哪些RibbonClient开启饥饿加载,多个用 "," 隔开
     clients: user-center
+
+logging:
+  level:
+    # feign 的日志级别是建立在接口日志级别基础上的
+    com.coisini.contentcenter.feignclient.UserCenterFeignClient: debug
+
+# 自定义配置 feign 日志级别
+#feign:
+#  client:
+#    config:
+#      # 调用的微服务名称
+#      # user-center:
+#        # loggerLevel: full
+#      # 全局配置
+#      default:
+#        loggerLevel: full
+
+
+feign.client.config:
+  <feignName>:
+    connectTimeout: 5000 # 连接超时时间
+    readTimeout: 5000 # 读取超时时间
+    loggerLevel: full # 日志级别
+    errorDecoder: com.example.SimpleErrorDecoder # 错误解码器
+    retryer: com.example.SimpleRetryer # 重试策略
+    requestInterceptors: com.example.FooRequestInterceptor # 拦截器
+    decode404: false # 是否对404错误码解码
+    encoder: com.example.SimpleEncoder # 编码器
+    decoder: com.example.SimpleDecoder # 解码器
+    contract: com.example.SimpleContract # 契约

@@ -19,9 +19,6 @@ spring:
     # <= 5.x: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
-
-
 # Actuator
 management:
   endpoint.health.show-details: always # health

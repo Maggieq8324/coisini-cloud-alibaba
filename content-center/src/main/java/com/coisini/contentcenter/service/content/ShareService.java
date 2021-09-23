@@ -4,6 +4,7 @@ import com.coisini.contentcenter.dao.content.ShareMapper;
 import com.coisini.contentcenter.domain.dto.content.ShareDTO;
 import com.coisini.contentcenter.domain.dto.user.UserDTO;
 import com.coisini.contentcenter.domain.entity.content.Share;
+import com.coisini.contentcenter.feignclient.UserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -32,6 +33,7 @@ public class ShareService {
     private final ShareMapper shareMapper;
     private final RestTemplate restTemplate;
     private final DiscoveryClient discoveryClient;
+    private final UserCenterFeignClient userCenterFeignClient;
 
     public ShareDTO findById(Integer id) {
         // 获取分享详情
@@ -60,11 +62,14 @@ public class ShareService {
 
         // RestTemplate 请求时，ribbon会把user-center转换成用户中心在Nacos上的地址，
         // 进行负载均衡算法计算出一个实例去请求
-        UserDTO userDTO = restTemplate.getForObject(
-                "http://user-center/users/{userId}",
-                UserDTO.class,
-                userId
-        );
+//        UserDTO userDTO = restTemplate.getForObject(
+//                "http://user-center/users/{userId}",
+//                UserDTO.class,
+//                userId
+//        );
+
+        // Feign 调用
+        UserDTO userDTO = userCenterFeignClient.findById(userId);
 
         // 消息装配
         ShareDTO shareDTO = new ShareDTO();

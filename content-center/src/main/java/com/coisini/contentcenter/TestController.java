@@ -1,6 +1,6 @@
 package com.coisini.contentcenter;
 
-import com.coisini.contentcenter.domain.dto.user.UserDTO;
+import com.coisini.contentcenter.feignclient.UserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -21,6 +20,7 @@ public class TestController {
 
     private final DiscoveryClient discoveryClient;
     private final RestTemplate restTemplate;
+    private final UserCenterFeignClient userCenterFeignClient;
 
     /**
      * 测试：服务发现，证明内容中心总能找到用户中心
@@ -99,5 +99,14 @@ public class TestController {
                 String.class,
                 "Coisini"
         );
+    }
+
+    /**
+     * 整合Feign
+     * @return
+     */
+    @GetMapping("test4")
+    public String test4() {
+        return userCenterFeignClient.test("Coisini");
     }
 }
