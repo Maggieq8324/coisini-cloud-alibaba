@@ -1,5 +1,7 @@
 package com.coisini.contentcenter;
 
+import com.coisini.contentcenter.feignclient.TestBaiduFeignClient;
+import com.coisini.contentcenter.feignclient.TestFeignClient;
 import com.coisini.contentcenter.feignclient.UserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,8 @@ public class TestController {
 
     private final DiscoveryClient discoveryClient;
     private final RestTemplate restTemplate;
-    private final UserCenterFeignClient userCenterFeignClient;
+    private final TestFeignClient testFeignClient;
+    private final TestBaiduFeignClient testBaiduFeignClient;
 
     /**
      * 测试：服务发现，证明内容中心总能找到用户中心
@@ -107,6 +110,15 @@ public class TestController {
      */
     @GetMapping("test4")
     public String test4() {
-        return userCenterFeignClient.test("Coisini");
+        return testFeignClient.test("Coisini");
+    }
+
+    /**
+     * feign脱离ribbon的使用
+     * @return
+     */
+    @GetMapping("baidu")
+    public String baiduIndex() {
+        return testBaiduFeignClient.index();
     }
 }

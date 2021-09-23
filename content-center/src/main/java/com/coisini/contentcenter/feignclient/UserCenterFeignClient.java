@@ -24,13 +24,4 @@ public interface UserCenterFeignClient {
     @GetMapping("/users/{id}")
     UserDTO findById(@PathVariable Integer id);
 
-    /**
-     * test接口被调用时，feign会构造出 url
-     * http://user-center/test/{name} 完成请求
-     * @param name
-     * @return
-     */
-    @GetMapping("/test/{name}")
-    String test(@PathVariable String name);
-
 }
