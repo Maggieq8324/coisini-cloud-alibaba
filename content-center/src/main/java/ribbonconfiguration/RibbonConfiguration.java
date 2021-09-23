@@ -1,5 +1,6 @@
 package ribbonconfiguration;
 
+import com.coisini.contentcenter.configuration.NacosSameClusterWeightedRule;
 import com.coisini.contentcenter.configuration.NacosWeightedRule;
 //import com.netflix.loadbalancer.IPing;
 import com.netflix.loadbalancer.IRule;
@@ -26,7 +27,7 @@ public class RibbonConfiguration {
      */
     @Bean
     public IRule ribbonRule() {
-        return new NacosWeightedRule();
+        return new NacosSameClusterWeightedRule();
     }
 
     /**

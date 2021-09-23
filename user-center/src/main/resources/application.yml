@@ -10,7 +10,7 @@ spring:
         # 指定命名空间
         # namespace:
         # 指定集群名称
-        # cluster-name:
+        cluster-name: kunming
   datasource:
     url: jdbc:mysql://localhost:3306/user_center?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: root
