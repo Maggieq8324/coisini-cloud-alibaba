@@ -1,22 +1,14 @@
-package com.coisini.contentcenter;
+package com.coisini.contentcenter.controller.test;
 
-import com.alibaba.csp.sentinel.Entry;
-import com.alibaba.csp.sentinel.SphU;
-import com.alibaba.csp.sentinel.Tracer;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.context.ContextUtil;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.coisini.contentcenter.service.test.TestService;
 import com.coisini.contentcenter.feignclient.TestBaiduFeignClient;
 import com.coisini.contentcenter.feignclient.TestFeignClient;
-import com.coisini.contentcenter.feignclient.UserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
@@ -149,58 +141,26 @@ public class TestController {
         return "test_b";
     }
 
-    @GetMapping("/test-sentinel-api")
-    public String testSentinelAPI(@RequestParam(required = false) String a) {
-        String resourceName = "test-sentinel-api";
-        ContextUtil.enter(resourceName, "test-wfw");
-
-        // 定义一个sentinel保护的资源，名称是test-sentinel-api
-        Entry entry = null;
-        try {
-            entry = SphU.entry(resourceName);
-            // 被保护的业务逻辑
-            if (StringUtils.isBlank(a)) {
-                throw new IllegalArgumentException("a不能为空");
-            }
-            return a;
-        }
-        // 如果被保护的资源被限流或者降级了，就会抛BlockException
-        catch (BlockException e) {
-            log.warn("限流，或者降级了", e);
-            return "限流，或者降级了";
-        } catch (IllegalArgumentException e2) {
-            // 统计IllegalArgumentException【发生的次数、发生占比...】
-            Tracer.trace(e2);
-            return "参数非法！";
-        } finally {
-            if (entry != null) {
-                // 退出entry
-                entry.exit();
-            }
-            ContextUtil.exit();
-        }
+    /**
+     * 为RestTemplate 整合Sentinel
+     * @return
+     */
+    @GetMapping("test5")
+    public String test5() {
+        return restTemplate.getForObject(
+                "http://user-center/test/{name}",
+                String.class,
+                "Coisini"
+        );
     }
 
-    @GetMapping("/test-sentinel-resource")
-    @SentinelResource(
-            value = "test-sentinel-api",
-            blockHandler = "block",
-            fallback = "fallback"
-    )
-    public String testSentinelResource(@RequestParam(required = false) String a) {
-        if (StringUtils.isBlank(a)) {
-            throw new IllegalArgumentException("a cannot be blank.");
-        }
-        return a;
-    }
-
-    public String block(String a, BlockException e) {
-        log.warn("限流，或者降级了", e);
-        return "限流，或者降级了 block";
-    }
-
-    public String fallback(String a) {
-        return "限流，或者降级了 fallback";
+    /**
+     * 为 Feign 整合 Sentinel
+     * @return
+     */
+    @GetMapping("test6")
+    public String test6() {
+        return testFeignClient.test("Coisini");
     }
 
 }

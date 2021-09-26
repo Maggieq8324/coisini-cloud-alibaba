@@ -1,4 +1,4 @@
-package com.coisini.contentcenter;
+package com.coisini.contentcenter.service.test;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.stereotype.Service;

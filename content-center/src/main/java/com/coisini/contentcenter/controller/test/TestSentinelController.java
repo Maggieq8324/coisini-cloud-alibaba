@@ -1,4 +1,4 @@
-package com.coisini.contentcenter;
+package com.coisini.contentcenter.controller.test;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
@@ -136,27 +136,5 @@ public class TestSentinelController {
             ContextUtil.exit();
         }
     }
-
-//    @GetMapping("/test-sentinel-resource")
-//    @SentinelResource(
-//            value = "test-sentinel-api",
-//            blockHandler = "block",
-//            fallback = "fallback"
-//    )
-//    public String testSentinelResource(@RequestParam(required = false) String a) {
-//        if (StringUtils.isBlank(a)) {
-//            throw new IllegalArgumentException("a cannot be blank.");
-//        }
-//        return a;
-//    }
-//
-//    public String block(String a, BlockException e) {
-//        log.warn("限流，或者降级了", e);
-//        return "限流，或者降级了 block";
-//    }
-//
-//    public String fallback(String a) {
-//        return "限流，或者降级了 fallback";
-//    }
 
 }

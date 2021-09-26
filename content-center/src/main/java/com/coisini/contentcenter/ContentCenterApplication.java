@@ -1,5 +1,6 @@
 package com.coisini.contentcenter;
 
+import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
 import com.coisini.contentcenter.configuration.GlobalFeignConfiguration;
 import com.coisini.contentcenter.configuration.UserCenterFeignConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -30,9 +31,11 @@ public class ContentCenterApplication {
      * <bean id="restTemplate" class ="xxx.RestTemplate" />
      *
      * @LoadBalanced 为RestTemplate 整合Ribbon
+     * @SentinelRestTemplate 为RestTemplate 整合Sentinel
      */
     @Bean
     @LoadBalanced
+    @SentinelRestTemplate
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
