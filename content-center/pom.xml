@@ -72,6 +72,11 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-web-servlet</artifactId>
         </dependency>
+        <!-- Sentinel规则持久化 -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-extension</artifactId>
+        </dependency>
         <!-- actuator -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
