@@ -18,8 +18,8 @@ spring:
         cluster-name: kunming
     sentinel:
       filter:
-        # 关闭对Spring MVC端点的保护
-        enabled: true
+        # 开启对Spring MVC端点的保护
+        enabled: false
       transport:
         # 指定 sentinel 控制台的地址
         dashboard: localhost:8083

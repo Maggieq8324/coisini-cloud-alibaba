@@ -151,14 +151,12 @@ public class TestController {
 
     @GetMapping("/test-sentinel-api")
     public String testSentinelAPI(@RequestParam(required = false) String a) {
-
         String resourceName = "test-sentinel-api";
         ContextUtil.enter(resourceName, "test-wfw");
 
         // 定义一个sentinel保护的资源，名称是test-sentinel-api
         Entry entry = null;
         try {
-
             entry = SphU.entry(resourceName);
             // 被保护的业务逻辑
             if (StringUtils.isBlank(a)) {
