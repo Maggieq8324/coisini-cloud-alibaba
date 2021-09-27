@@ -1,4 +1,4 @@
-package com.coisini.contentcenter.core;
+package com.coisini.contentcenter.sentinel;
 
 import com.alibaba.csp.sentinel.command.handler.ModifyParamFlowRulesCommandHandler;
 import com.alibaba.csp.sentinel.datasource.*;

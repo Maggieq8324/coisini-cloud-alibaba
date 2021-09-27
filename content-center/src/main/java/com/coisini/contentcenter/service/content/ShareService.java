@@ -1,6 +1,7 @@
 package com.coisini.contentcenter.service.content;
 
 import com.coisini.contentcenter.dao.content.ShareMapper;
+import com.coisini.contentcenter.domain.dto.content.ShareAuditDTO;
 import com.coisini.contentcenter.domain.dto.content.ShareDTO;
 import com.coisini.contentcenter.domain.dto.user.UserDTO;
 import com.coisini.contentcenter.domain.entity.content.Share;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -78,8 +80,35 @@ public class ShareService {
         return shareDTO;
     }
 
+    /**
+     * 管理员审核分享
+     * @param id
+     * @param auditDTO
+     * @return
+     */
+    public Share auditById(Integer id, ShareAuditDTO auditDTO) {
+        // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        if (share == null) {
+            throw new IllegalArgumentException("参数非法！该分享不存在！");
+        }
+        if (!Objects.equals("NOT_YET", share.getAuditStatus())) {
+            throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
+        }
+
+        // 审核资源
+        share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
+        shareMapper.updateByPrimaryKey(share);
+
+        // 3. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
+        // 异步执行，缩短响应耗时提升用户体验
+
+        return share;
+    }
+
     public static void main(String[] args) {
 
     }
+
 
 }

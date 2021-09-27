@@ -15,11 +15,11 @@ spring:
         # 分组
         # group: TEST_GROUP
         # 集群名称
-        cluster-name: kunming
+        # cluster-name: kunming
     sentinel:
       filter:
         # 开启对Spring MVC端点的保护
-        enabled: false
+        enabled: true
       transport:
         # 指定 sentinel 控制台的地址
         dashboard: localhost:8083

@@ -1,8 +1,7 @@
 package com.coisini.contentcenter.controller.test;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.coisini.contentcenter.sentineltest.TestBlockHandler;
+import com.coisini.contentcenter.sentinel.TestBlockHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;

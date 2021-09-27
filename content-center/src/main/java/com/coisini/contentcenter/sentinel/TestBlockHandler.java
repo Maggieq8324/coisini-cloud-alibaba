@@ -1,4 +1,4 @@
-package com.coisini.contentcenter.sentineltest;
+package com.coisini.contentcenter.sentinel;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.extern.slf4j.Slf4j;
