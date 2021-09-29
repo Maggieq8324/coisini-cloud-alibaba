@@ -112,6 +112,7 @@ public class ShareService {
         if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
             // 发送半消息
             rocketMQTemplate.sendMessageInTransaction(
+                    "add-bonus-group",
                     "add-bonus",
                     MessageBuilder.withPayload(
                         UserAddBonusMsgDTO.builder()

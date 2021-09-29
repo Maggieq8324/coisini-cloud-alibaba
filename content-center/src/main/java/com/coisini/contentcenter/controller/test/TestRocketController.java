@@ -26,6 +26,10 @@ public class TestRocketController {
         return "success";
     }
 
+    /**
+     * 分布式事务消息测试
+     * @return
+     */
     @PostMapping("test1")
     public Test test1() {
         return testService.insertTest();

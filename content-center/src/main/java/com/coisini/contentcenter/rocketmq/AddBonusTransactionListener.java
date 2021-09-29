@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 
-//@RocketMQTransactionListener
+@RocketMQTransactionListener(txProducerGroup = "add-bonus-group")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AddBonusTransactionListener implements RocketMQLocalTransactionListener {
 

@@ -20,6 +20,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @MapperScan("com.coisini.contentcenter.dao")
 //@EnableFeignClients(defaultConfiguration = GlobalFeignConfiguration.class)
 @EnableFeignClients
+//@EnableBinding(Source.class)
 @SpringBootApplication
 public class ContentCenterApplication {
     public static void main(String[] args) {

@@ -15,9 +15,10 @@ import org.springframework.messaging.MessageHeaders;
 import java.util.Objects;
 
 /**
+ * 分布式事务消息
  * 事务监听
  */
-@RocketMQTransactionListener
+@RocketMQTransactionListener(txProducerGroup = "add-test-group")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AddTestTransactionListener implements RocketMQLocalTransactionListener {
 

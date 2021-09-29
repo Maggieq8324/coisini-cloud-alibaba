@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Slf4j
-//@Service
-//@RocketMQMessageListener(consumerGroup = "consumer-group", topic = "add-bonus")
+@Service
+@RocketMQMessageListener(consumerGroup = "consumer-group", topic = "add-bonus")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AddBonusConsumer implements RocketMQListener<UserAddBonusMsgDTO> {
 

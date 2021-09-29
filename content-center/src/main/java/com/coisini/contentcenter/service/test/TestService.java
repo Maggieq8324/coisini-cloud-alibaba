@@ -56,6 +56,7 @@ public class TestService {
          * 参数2：arg 可用作参数传递
          */
         rocketMQTemplate.sendMessageInTransaction(
+                "add-test-gropu",
                 "add-test",
                 MessageBuilder.withPayload(test)
                               .setHeader(RocketMQHeaders.TRANSACTION_ID, UUID.randomUUID().toString())

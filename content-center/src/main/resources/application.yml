@@ -25,6 +25,27 @@ spring:
         dashboard: localhost:8083
       # 控制是否收敛 context。将其配置为 false 即可根据不同的 URL 进行链路限流。
       web-context-unify: false
+#    stream:
+#      rocketmq:
+#        binder:
+#          name-server: 127.0.0.1:9876
+#      bindings:
+#        output:
+#          # 用来指定topic
+#          destination: stream-test-topic
+    stream:
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+        bindings:
+          output:
+            producer:
+              transactional: true
+              group: tx-add-bonus-group
+      bindings:
+        output:
+          # 用来指定topic
+          destination: add-bonus
   datasource:
     url: jdbc:mysql://localhost:3306/content_center?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: root
@@ -52,6 +73,7 @@ logging:
   level:
     # feign 的日志级别是建立在接口日志级别基础上的
     com.coisini.contentcenter.feignclient.UserCenterFeignClient: debug
+    com.alibaba.nacos: error
 
 # 自定义配置 feign 日志级别
 feign:
