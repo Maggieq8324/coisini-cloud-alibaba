@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: core-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+#      discovery:
+#        locator:
+#          # 让gateway通过服务发现组件找到其他的微服务
+#          enabled: true
+      routes:
+        - id: user-center
+          uri: http://www.baidu.com
+          predicates:
+            - TimeBetween=上午9:00,下午10:00
+
+server:
+  port: 8040
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: trace
